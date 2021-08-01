@@ -1,0 +1,63 @@
+<div class="list row">
+  <div class="col-md-8">
+    <div class="input-group mb-3">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Search by title"
+        [(ngModel)]="name"
+      />
+      <div class="input-group-append">
+        <button
+          class="btn btn-outline-secondary"
+          type="button"
+          (click)="searchTitle()"
+        >
+          Search
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <h4>Contacts List</h4>
+    <ul class="list-group">
+      <li
+        class="list-group-item"
+        *ngFor="let contact of contacts; let i = index"
+        [class.active]="i == currentIndex"
+        (click)="setActiveContact(contact, i)"
+      >
+        {{ contact.name }}
+      </li>
+    </ul>
+
+    <button class="m-3 btn btn-sm btn-danger" (click)="removeAllContacts()">
+      Remove All
+    </button>
+  </div>
+  <div class="col-md-6">
+    <div *ngIf="currentContact.id">
+      <h4>Contact</h4>
+      <div>
+        <label><strong>Name:</strong></label> {{ currentContact.name }}
+      </div>
+      <div>
+        <label><strong>Phone</strong></label>
+        {{ currentContact.phone_number }}
+      </div>
+      <div>
+        <label><strong>Status:</strong></label>
+        {{ currentContact.published ? "Published" : "Pending" }}
+      </div>
+
+      <a class="badge badge-warning" routerLink="/contacts/{{ currentContact.id }}">
+        Edit
+      </a>
+    </div>
+
+    <div *ngIf="!currentContact">
+      <br />
+      <p>Please click on a Contact...</p>
+    </div>
+  </div>
+</div>
